@@ -1,0 +1,32 @@
+<div style="text-align:center; margin: 50px 0">
+  <input placholder="set foo" [(ngModel)]="foo" style="padding: 6px 12px; margin-right: 12px" />
+  <button (click)="setFoo()" style="padding: 6px 12px; appearance: none; outline: none; box-shadow: none; border: none; background: #219cba; color: #fff; font-size: 16px">set</button>
+</div>
+
+<div style="text-align:center; border: solid 1px #ccc; background: #f5f5f7; margin: 0 auto; padding: 24px; width: 200px">
+  <loading [selector]="fooLoading">
+    Foo is set to: {{ foo$ | async }}
+  </loading>
+</div>
+
+<div style="width: 200px; margin: 50px auto">
+  <h3>Users</h3>
+  <loading [selector]="usersLoading">
+    <ul style="list-style: none; border-top: solid 1px #ccc">
+      <li *ngFor="let user of (users$ | async)" style="padding: 12px 24px; border-bottom: solid 1px #ccc">
+        {{user?.name}}
+      </li>
+    </ul>
+  </loading>
+</div>
+
+<div style="width: 200px; margin: 50px auto">
+  <h3>Comments</h3>
+  <loading [selector]="commentsLoading">
+    <ul style="list-style: none; border-top: solid 1px #ccc">
+      <li *ngFor="let comment of (comments$ | async)" style="padding: 12px 24px; border-bottom: solid 1px #ccc">
+        {{comment?.user?.name}}: {{comment?.message}}
+      </li>
+    </ul>
+  </loading>
+</div>
