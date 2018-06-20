@@ -1,5 +1,6 @@
-import { denormalize } from 'normalizr';
 import { path as getPath, equals, type, pathOr, propOr, toString } from 'ramda';
+import { denormalize, Schema } from 'normalizr';
+
 export const parseToString = (str) => {
   return type(str) === 'String' ? str : toString(str);
 };
@@ -33,7 +34,11 @@ export const createDenormalizedEntitySelector = ({
   path,
   prop,
   schema,
-}, options) => {
+}: {
+  path?: string | string[];
+  prop?: string;
+  schema?: Schema;
+}, options?) => {
   let lastValue = null;
   let denormalizedValue = null;
   const selector = createPathSelector(prop || path, options);
