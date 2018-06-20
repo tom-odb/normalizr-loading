@@ -133,17 +133,18 @@ export const combineSelectors = (selectors, { entry = '' } = {}) => {
     [selector]: getCombinedSelector(selectors[selector], entry),
   }), {});
 };
+export const createEntrySelector = (selector, base) => {
+  const baseSelector = createPathSelector(base);
 
-export const getCombinedSelector = (selector, base) => {
   switch (type(selector)) {
     case 'String':
-      return createPathSelector([base, selector]);
+      return createPathSelector([...baseSelector, ...createPathSelector(selector)]);
     case 'Array':
-      return createPathSelector([base, ...selector]);
+      return createPathSelector([...baseSelector, ...selector]);
     case 'Function':
       // get selector for entry point
       const entrySelector = createSelector({
-        [Array.isArray(base) ? 'path' : 'prop']: base,
+        path: baseSelector,
       });
 
       return (state) => {
@@ -158,7 +159,7 @@ export const getCombinedSelector = (selector, base) => {
       };
     case 'Object':
       // recursively create selectors
-      return combineSelectors(selector, { entry: base });
+      return combineSelectors(selector, { entry: baseSelector });
     default:
       return selector;
   }
