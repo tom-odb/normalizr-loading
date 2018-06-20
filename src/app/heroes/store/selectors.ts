@@ -6,7 +6,13 @@ import {
   heroesDetailError,
   heroesDetailMeta,
 } from './detail/selectors';
-import { heroesList, heroesListLoading, heroesListError, heroesListMeta } from './list/selectors';
+import {
+  heroesList,
+  heroesListLoading,
+  heroesListError,
+  heroesListMeta,
+  heroesListPagination,
+} from './list/selectors';
 
 export const heroesSelector = combineSelectors({
   detail: {
@@ -20,5 +26,6 @@ export const heroesSelector = combineSelectors({
     loading: heroesListLoading,
     error: heroesListError,
     meta: heroesListMeta,
+    pagination: heroesListPagination,
   },
 }, { entry: 'heroes' });
