@@ -45,6 +45,10 @@ export class HeroActions {
 
           return of(error);
         }),
+        finalize(() => {
+          // Use finalize to catch canceled request
+          this.handler.dispatchDone(ACTIONS.FETCH_ALL);
+        }),
       );
   }
 

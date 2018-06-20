@@ -32,6 +32,7 @@ export const createDenormalizedEntitySelector = ({
     lastValue = currentValue;
 
     if (!lastValue) {
+      denormalizedValue = null;
       return null;
     }
 

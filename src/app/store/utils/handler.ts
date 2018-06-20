@@ -5,6 +5,7 @@ import { NgRedux } from '@angular-redux/store';
 export class Handler {
   public SUCCESS = 'SUCCESS';
   public ERROR = 'ERROR';
+  public DONE = 'DONE';
 
   constructor(
     private ngRedux: NgRedux<any>,
@@ -21,6 +22,12 @@ export class Handler {
     this.ngRedux.dispatch({
       type: `${action}/${this.ERROR}`,
       ...payload,
+    });
+  }
+
+  public dispatchDone(action) {
+    this.ngRedux.dispatch({
+      type: `${action}/${this.DONE}`,
     });
   }
 }

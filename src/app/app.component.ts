@@ -2,13 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { select } from '@angular-redux/store';
 import { Observable } from 'rxjs';
 
-import { FooActions } from './store/foo/actions';
-import { fooResult, fooLoading } from './store/foo/selectors';
-import { usersList, usersLoading } from './store/users/selectors';
-import { commentsList, commentsLoading } from './store/comments/selectors';
-import { heroesList, heroesLoading } from './store/heroes/selectors';
-import { UsersActions } from './store/users/actions';
-import { CommentsActions } from './store/comments/actions';
+import { heroesList } from './store/heroes/selectors';
 import { HeroActions } from './store/heroes/actions';
 
 @Component({
@@ -20,8 +14,11 @@ export class AppComponent implements OnInit {
   @select(heroesList) public heroes$: Observable<any>;
   @select(['heroes']) public meta$: Observable<any>;
   @select(['heroes', 'loading']) public heroesLoading$: Observable<any>;
+  @select(['heroes', 'pagination']) public heroesPagination$: Observable<any>;
+  @select(['heroes', 'error']) public heroesError$: Observable<any>;
 
   public page = 1;
+  private isFetching;
 
   constructor(
     private heroActions: HeroActions,
@@ -44,11 +41,19 @@ export class AppComponent implements OnInit {
   }
 
   public fetchHeroes() {
-    this.heroActions
+    this.cancelFetch();
+
+    this.isFetching = this.heroActions
       .fetchAll({
         offset: (this.page - 1) * 10,
         limit: 10,
       })
       .subscribe();
+  }
+
+  public cancelFetch() {
+    if (this.isFetching) {
+      this.isFetching.unsubscribe();
+    }
   }
 }

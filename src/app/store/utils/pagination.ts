@@ -2,8 +2,8 @@ export const paginationReducer = (reducer) => (state, action) => {
 
   if (action.pagination) {
     return {
-      pagination: action.pagination,
       ...reducer(state, action),
+      pagination: action.pagination,
     };
   }
 

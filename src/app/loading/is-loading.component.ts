@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, OnInit } from '@angular/core';
+import { Component, Input, OnChanges, Output, EventEmitter } from '@angular/core';
 import { timer, Subject } from 'rxjs';
 import { map, distinctUntilChanged, delay } from 'rxjs/operators';
 
@@ -6,8 +6,9 @@ import { map, distinctUntilChanged, delay } from 'rxjs/operators';
   selector: 'app-is-loading',
   templateUrl: './is-loading.component.html',
 })
-export class IsLoadingComponent implements OnChanges, OnInit {
+export class IsLoadingComponent implements OnChanges {
   @Input() public loading = true;
+  @Output() public cancel = new EventEmitter();
 
   public isLoading$ = new Subject();
   public status = {
@@ -16,10 +17,6 @@ export class IsLoadingComponent implements OnChanges, OnInit {
     LONG: 'LONG',
   };
   private timer$;
-
-  public ngOnInit() {
-    this.isLoading$.subscribe((value) => console.log(value));
-  }
 
   public ngOnChanges() {
     if (this.timer$) {
@@ -56,5 +53,9 @@ export class IsLoadingComponent implements OnChanges, OnInit {
         this.isLoading$.next(null);
       }, 1000);
     }
+  }
+
+  public emitCancel() {
+    this.cancel.emit();
   }
 }
