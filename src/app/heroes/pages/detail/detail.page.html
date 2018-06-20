@@ -1,0 +1,16 @@
+<div style="width: 600px; margin: 50px auto">
+  <a routerLink="../">back</a>
+  <app-loading [loading]="heroesLoading$ | async" (cancel)="cancelFetch()">
+    <div *ngIf="error$ | async">
+      {{ error$ | async }}
+
+      <button (click)="fetchHero()">Try again</button>
+    </div>
+
+    <div *ngIf="(hero$ | async) as hero">
+      <img width="200" height="200" src="{{ hero.thumbnail?.path }}.{{ hero.thumbnail?.extension }}" />
+      <p><strong>{{ hero.name }}</strong></p>
+      <p><small>{{ hero.description }}</small></p>
+    </div>
+  </app-loading>
+</div>

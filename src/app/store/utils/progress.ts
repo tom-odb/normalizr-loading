@@ -5,7 +5,15 @@ import {
   ProgressAction,
   ProgressReducer,
   ProgressOptions,
-} from "../store.types";
+} from '../store.types';
+
+const PROGRESS_DEFAULT_STATE: ProgressState<any> = {
+  loading: false,
+  error: null,
+  result: null,
+  startFetching: null,
+  lastUpdated: null,
+};
 
 const getResultState = <T = any>(
   state: ProgressState<T>,
@@ -13,7 +21,7 @@ const getResultState = <T = any>(
   reducer: ProgressReducer<T>,
   shouldUpdate?: boolean,
 ): T => {
-  const currentState = propOr(null, 'result', state);
+  const currentState = propOr<T>(null, 'result', state);
 
   if (!shouldUpdate) {
     return currentState;
@@ -27,16 +35,48 @@ const getResultState = <T = any>(
 };
 
 export const progressReducer = <T = any>({ type }: ProgressOptions, reducer: ProgressReducer) => (
-  state: ProgressState<T> = null,
+  state: ProgressState<T> = PROGRESS_DEFAULT_STATE,
   action: ProgressAction
 ): ProgressState<T> => {
-  const shouldUpdate = action.type.split('/')[0] === type;
+  const [ entity, actions, response ] = action.type.split('/');
 
-  return {
-    loading: shouldUpdate ? propOr(false, 'loading', action) : propOr(false, 'loading', state),
-    error: shouldUpdate ? propOr(null, 'error', action) : propOr(null, 'error', state),
-    createdDate: shouldUpdate ? propOr(Date.now(), 'createdDate', state) : propOr(null, 'createdDate', state),
-    lastUpdated: shouldUpdate ? Date.now() : propOr(null, 'lastUpdated', state),
-    result: getResultState(state, action, reducer, shouldUpdate),
-  };
+  if (entity === type) {
+
+    if (response === 'START') {
+      return Object.assign({}, state, { loading: true, startFetching: Date.now() });
+    }
+
+    if (response === 'SUCCESS') {
+      return Object.assign({}, state, {
+        error: null,
+        result: reducer(state, {
+          ...action,
+          type: `${entity}/${actions}`,
+        }),
+      });
+    }
+
+    if (response === 'ERROR') {
+      return Object.assign({}, state, {
+        error: action.message,
+        result: null,
+      });
+    }
+
+    if (response === 'DONE') {
+      return Object.assign({}, state, {
+        loading: false,
+        lastUpdated: Date.now(),
+      });
+    }
+
+    return Object.assign({}, state, {
+      result: reducer(state, {
+        ...action,
+        type: `${entity}/${actions}`,
+      }),
+    });
+  }
+
+  return state;
 };

@@ -1,39 +1,29 @@
-import { Component, Input, OnChanges, SimpleChanges } from "@angular/core";
-import { Subscription } from "rxjs";
-import { get, isEqual } from 'lodash-es';
-import { NgRedux } from "@angular-redux/store";
-
-import { StateSelector } from "../store/store.types";
+import { Component, Input, OnChanges, Output, EventEmitter } from '@angular/core';
+import { LoadingHandler } from './loading-handler.class';
 
 @Component({
-  selector: 'loading',
-  template: `
-    <span *ngIf="loading">...</span>
-    <ng-content *ngIf="!loading"></ng-content>
-  `,
+  selector: 'app-loading',
+  templateUrl: './loading.component.html',
+  styleUrls: ['./loading.component.scss'],
 })
 export class LoadingComponent implements OnChanges {
-  @Input() public selector: StateSelector;
+  @Input() public loading = true;
+  @Output() public cancel = new EventEmitter();
 
-  public loading: boolean = true;
-  private subscription: Subscription;
+  public loader = new LoadingHandler();
+  public isLoading$ = this.loader.isLoading();
 
-  constructor(
-    private ngRedux: NgRedux<any>,
-  ) {}
+  public ngOnChanges() {
+    this.loader.clearLoader();
 
-  public ngOnChanges(changes: SimpleChanges): void {
-    const selector = get(changes, 'selector.currentValue', null);
-
-    if (isEqual(selector, get(changes, 'selector.previousValue', null))) {
-      return;
+    if (this.loading) {
+      this.loader.startLoading();
+    } else {
+      this.loader.stopLoading();
     }
+  }
 
-    if (this.subscription) {
-      this.subscription.unsubscribe();
-    }
-
-    this.subscription = this.ngRedux.select(selector)
-      .subscribe((loading: boolean) => this.loading = loading);
+  public emitCancel() {
+    this.cancel.emit();
   }
 }
