@@ -31,7 +31,7 @@ returns progress wrapped state:
 {
   loading: true/false,
   error: 'this failed',
-  createdAt: 1528905229476,
+  startFetching: 1528905229476,
   lastUpdated: 1528905229123,
   result: {...}
 }
