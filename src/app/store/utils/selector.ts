@@ -1,4 +1,4 @@
-import { path as getPath, equals } from 'ramda';
+import { path as getPath, equals, type, pathOr, propOr } from 'ramda';
 import { denormalize } from 'normalizr';
 
 export const createPropSelector = (prop, { progress = false } = {}) => {
@@ -71,4 +71,41 @@ export const createSelector = ({
   }
 
   return noopSelector;
+};
+
+export const combineSelectors = (selectors, { entry = '' } = {}) => {
+  if (!entry) {
+    return selectors;
+  }
+
+  return Object.keys(selectors).reduce((combined, selector) => ({
+    ...combined,
+    [selector]: getCombinedSelector(selectors[selector], entry),
+  }), {});
+};
+
+const getCombinedSelector = (selector, base) => {
+  switch (type(selector)) {
+    case 'String':
+      return createPathSelector([base, selector]);
+    case 'Array':
+      return createPathSelector([base, ...selector]);
+    case 'Function':
+      const entrySelector = createSelector({
+        [Array.isArray(base) ? 'path' : 'prop']: base,
+      });
+
+      return (state) => {
+        const entryState = Array.isArray(entrySelector) ? pathOr(null, entrySelector, state) : propOr(null, entrySelector, state);
+
+        return selector({
+          ...entryState,
+          entities: state.entities,
+        });
+      };
+    case 'Object':
+      return combineSelectors(selector, { entry: base });
+    default:
+      return selector;
+  }
 };
