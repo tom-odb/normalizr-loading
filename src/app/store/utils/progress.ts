@@ -61,6 +61,13 @@ export const progressReducer = <T = any>({ type }: ProgressOptions, reducer: Pro
         lastUpdated: Date.now(),
       });
     }
+
+    return Object.assign({}, state, {
+      result: reducer(state, {
+        ...action,
+        type: `${entity}/${actions}`,
+      }),
+    });
   }
 
   return state;
