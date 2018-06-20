@@ -1,6 +1,6 @@
 <div style="width: 600px; margin: 50px auto">
   <a routerLink="../">back</a>
-  <app-is-loading [loading]="heroesLoading$ | async" (cancel)="cancelFetch()">
+  <app-loading [loading]="heroesLoading$ | async" (cancel)="cancelFetch()">
     <div *ngIf="error$ | async">
       {{ error$ | async }}
 
@@ -12,5 +12,5 @@
       <p><strong>{{ hero.name }}</strong></p>
       <p><small>{{ hero.description }}</small></p>
     </div>
-  </app-is-loading>
+  </app-loading>
 </div>

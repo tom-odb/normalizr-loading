@@ -1,5 +1,5 @@
 <div style="width: 600px; margin: 50px auto">
-  <app-is-loading [loading]="heroesLoading$ | async" (cancel)="cancelFetch()">
+  <app-loading [loading]="heroesLoading$ | async" (cancel)="cancelFetch()">
     <div *ngIf="heroesError$ | async">
       {{ heroesError$ | async }}
 
@@ -26,5 +26,5 @@
 
       <button (click)="cancelFetch()">Cancel</button>
     </div>
-  </app-is-loading>
+  </app-loading>
 </div>

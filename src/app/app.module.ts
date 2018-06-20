@@ -5,7 +5,6 @@ import { RouterModule } from '@angular/router';
 
 import { AppComponent } from './app.component';
 import { APP_ROUTES } from './app.routes';
-import { Pages } from './pages';
 
 import { StoreModule } from './store/store.module';
 import { LoadingModule } from './loading/loading.module';
@@ -13,7 +12,6 @@ import { LoadingModule } from './loading/loading.module';
 @NgModule({
   declarations: [
     AppComponent,
-    Pages,
   ],
   imports: [
     BrowserModule,
