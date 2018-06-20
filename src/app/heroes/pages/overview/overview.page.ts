@@ -5,10 +5,10 @@ import { Observable } from 'rxjs';
 import { heroesList, heroesListLoading, heroesListPagination, HeroesListActions, heroesListError } from '../../store';
 
 @Component({
-  selector: 'overview-page',
+  selector: 'app-overview-page',
   templateUrl: './overview.page.html',
 })
-export class OverviewPage {
+export class OverviewPageComponent {
   @select(heroesList) public heroes$: Observable<any>;
   @select(heroesListLoading) public heroesLoading$: Observable<any>;
   @select(heroesListPagination) public heroesPagination$: Observable<any>;

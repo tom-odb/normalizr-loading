@@ -1,15 +1,15 @@
-import { Component, OnDestroy, OnInit } from "@angular/core";
-import { ActivatedRoute } from "@angular/router";
-import { Observable } from "rxjs";
-import { select } from "@angular-redux/store";
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { Observable } from 'rxjs';
+import { select } from '@angular-redux/store';
 
-import { HeroesDetailActions, heroesDetail, heroesDetailLoading, heroesDetailError } from "../../store";
+import { HeroesDetailActions, heroesDetail, heroesDetailLoading, heroesDetailError } from '../../store';
 
 @Component({
-  selector: 'detail-page',
+  selector: 'app-detail-page',
   templateUrl: './detail.page.html',
 })
-export class DetailPage implements OnInit, OnDestroy {
+export class DetailPageComponent implements OnInit, OnDestroy {
   @select(heroesDetail) public hero$: Observable<any>;
   @select(heroesDetailLoading) public loading$: Observable<any>;
   @select(heroesDetailError) public error$: Observable<any>;

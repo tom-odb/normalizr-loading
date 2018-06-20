@@ -1,4 +1,4 @@
-import { progressReducer } from "../utils/progress";
+import { progressReducer } from '../utils/progress';
 
 import * as ACTIONS from './action-types';
 

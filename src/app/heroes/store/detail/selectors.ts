@@ -1,6 +1,6 @@
-import { createSelector } from "../../../store/utils/selector";
+import { createSelector } from '../../../store/utils/selector';
 
-import { hero } from "../schemas";
+import { hero } from '../schemas';
 
 export const heroesDetail = createSelector({
   entity: {
