@@ -3,6 +3,7 @@ import { NgRedux } from '@angular-redux/store';
 
 @Injectable()
 export class Handler {
+  public START = 'START';
   public SUCCESS = 'SUCCESS';
   public ERROR = 'ERROR';
   public DONE = 'DONE';
@@ -11,23 +12,26 @@ export class Handler {
     private ngRedux: NgRedux<any>,
   ) {}
 
-  public dispatchSuccess(action, payload) {
+  public dispatch(action, payload?) {
     this.ngRedux.dispatch({
-      type: `${action}/${this.SUCCESS}`,
+      type: action,
       ...payload,
     });
   }
 
-  public dispatchError(action, payload) {
-    this.ngRedux.dispatch({
-      type: `${action}/${this.ERROR}`,
-      ...payload,
-    });
+  public dispatchStart(action, payload?) {
+    this.dispatch(`${action}/${this.START}`, payload);
   }
 
-  public dispatchDone(action) {
-    this.ngRedux.dispatch({
-      type: `${action}/${this.DONE}`,
-    });
+  public dispatchSuccess(action, payload?) {
+    this.dispatch(`${action}/${this.SUCCESS}`, payload);
+  }
+
+  public dispatchError(action, payload?) {
+    this.dispatch(`${action}/${this.ERROR}`, payload);
+  }
+
+  public dispatchDone(action, payload?) {
+    this.dispatch(`${action}/${this.DONE}`, payload);
   }
 }

@@ -6,7 +6,6 @@ import {
   ProgressReducer,
   ProgressOptions,
 } from '../store.types';
-import { NG_PROJECT_AS_ATTR_NAME } from '@angular/core/src/render3/interfaces/projection';
 
 const getResultState = <T = any>(
   state: ProgressState<T>,
@@ -43,7 +42,10 @@ export const progressReducer = <T = any>({ type }: ProgressOptions, reducer: Pro
       return Object.assign({}, state, {
         loading: false,
         error: null,
-        result: reducer(state, action),
+        result: reducer(state, {
+          ...action,
+          type: `${entity}/${actions}`,
+        }),
         lastUpdated: Date.now(),
       });
     }
