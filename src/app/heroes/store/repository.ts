@@ -20,7 +20,7 @@ export class HeroRepository {
         map((response: any) => {
           return response.data;
         }),
-        // delay(Math.floor(Math.random() * Math.floor(10) * 1000)),
+        // delay(Math.floor(Math.random() * Math.floor(10) * 1500)),
         // delay(10000),
       );
   }
