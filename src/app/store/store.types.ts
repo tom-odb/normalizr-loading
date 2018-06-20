@@ -10,7 +10,7 @@ export interface ProgressState<T = any> {
   loading: boolean;
   error: any;
   result: T;
-  createdDate: number;
+  startFetching: number;
   lastUpdated: number;
 }
 
