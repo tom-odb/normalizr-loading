@@ -45,8 +45,12 @@ export const createDenormalizedEntitySelector = ({
 }: {
   path?: string | string[];
   prop?: string;
-  schema?: Schema;
+  schema: Schema;
 }, options?) => {
+  if (!schema) {
+    return noopSelector;
+  }
+
   let lastValue = null;
   let denormalizedValue = null;
   const selector = createPathSelector(prop || path, options);
