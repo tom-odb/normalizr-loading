@@ -1,0 +1,25 @@
+<div class="m-loading" *ngIf="loading">
+  <div *ngIf="loading === STATUS.SHORT" class="m-loading--short">
+    <i class="fa fa-spinner fa-spin fa-fw"></i> Loading...
+  </div>
+
+  <div *ngIf="loading === STATUS.MIDDLE" class="m-loading--middle">
+      <div class="m-loading__icon">
+        <i class="fa fa-spinner fa-spin fa-fw"></i>
+      </div>
+      <div class="m-loading__message">
+        <div class="m-loading__title">Hang on there, we're almost there</div>
+        <p>Fetching data...</p>
+      </div>
+    </div>
+
+  <div *ngIf="loading === STATUS.LONG" class="m-loading--middle">
+    <div class="m-loading__icon">
+      <i class="fa fa-spinner fa-spin fa-fw"></i>
+    </div>
+    <div class="m-loading__message">
+      <div class="m-loading__title">This is taking longer than expected</div>
+      <p>Coffee is always a good idea or if you need to get it on: <button (click)="emitCancel()">cancel</button></p>
+    </div>
+  </div>
+</div>

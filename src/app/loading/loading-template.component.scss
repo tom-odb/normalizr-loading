@@ -1,0 +1,31 @@
+.m-loading {
+  padding: 2rem;
+  background-color: #fafafa;
+  border: 1px solid #c0c0c0;
+  border-radius: 10px;
+}
+
+.m-loading--short {
+  text-align: center;
+}
+
+.m-loading--middle {
+  display: flex;
+
+  button {
+    display: inline;
+    border: none;
+    background-color: transparent;
+    font: inherit;
+    color: #4a98ee;
+  }
+}
+
+.m-loading__icon {
+  padding-right: 2rem;
+}
+
+.m-loading__title {
+  font-weight: 700;
+  margin-bottom: 20px;
+}
