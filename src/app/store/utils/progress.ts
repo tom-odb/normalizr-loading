@@ -7,6 +7,14 @@ import {
   ProgressOptions,
 } from '../store.types';
 
+const PROGRESS_DEFAULT_STATE: ProgressState<any> = {
+  loading: false,
+  error: null,
+  result: null,
+  startFetching: null,
+  lastUpdated: null,
+};
+
 const getResultState = <T = any>(
   state: ProgressState<T>,
   action: ProgressAction,
@@ -27,7 +35,7 @@ const getResultState = <T = any>(
 };
 
 export const progressReducer = <T = any>({ type }: ProgressOptions, reducer: ProgressReducer) => (
-  state: ProgressState<T> = null,
+  state: ProgressState<T> = PROGRESS_DEFAULT_STATE,
   action: ProgressAction
 ): ProgressState<T> => {
   const [ entity, actions, response ] = action.type.split('/');
