@@ -36,7 +36,10 @@ export const createDenormalizedEntitySelector = ({
       return null;
     }
 
-    denormalizedValue = denormalize(lastValue, [schema], state.entities);
+    const isArray = Array.isArray(lastValue);
+    const denormalized = denormalize(isArray ? lastValue : [lastValue], [schema], state.entities);
+
+    denormalizedValue = isArray ? denormalized : (denormalized.length ? denormalized[0] : null);
 
     return denormalizedValue;
   };
