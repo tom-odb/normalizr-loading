@@ -62,17 +62,6 @@ export const progressReducer = <T = any>({ type }: ProgressOptions, reducer: Pro
         loading: false,
       });
     }
-
-    // if (response === 'START') {
-    //   // return {
-    //   //   ...state,
-    //   //   loading: shouldUpdate ? propOr(false, 'loading', action) : propOr(false, 'loading', state),
-    //   //   error: shouldUpdate ? propOr(null, 'error', action) : propOr(null, 'error', state),
-    //   //   createdDate: shouldUpdate ? propOr(Date.now(), 'createdDate', state) : propOr(null, 'createdDate', state),
-    //   //   lastUpdated: shouldUpdate ? Date.now() : propOr(null, 'lastUpdated', state),
-    //   //   result: getResultState(state, action, reducer, shouldUpdate),
-    //   // };
-    // }
   }
 
   return state;
