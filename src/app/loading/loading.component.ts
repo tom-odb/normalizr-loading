@@ -11,7 +11,6 @@ export class LoadingComponent implements OnChanges {
 
   public loader = new LoadingHandler();
   public isLoading$ = this.loader.isLoading();
-  private timer$;
 
   public ngOnChanges() {
     this.loader.clearLoader();
