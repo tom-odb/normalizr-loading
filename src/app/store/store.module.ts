@@ -6,10 +6,7 @@ import { environment } from '../../environments/environment';
 
 import { Handler } from './utils/handler';
 
-import { FooActions } from './foo/actions';
 import { EntitiesActions } from './entities/actions';
-import { UsersActions } from './users/actions';
-import { CommentsActions } from './comments/actions';
 import { StoreService } from './store.service';
 
 @NgModule({
@@ -19,10 +16,7 @@ import { StoreService } from './store.service';
   ],
   providers: [
     StoreService,
-    FooActions,
     EntitiesActions,
-    UsersActions,
-    CommentsActions,
     Handler,
   ],
 })
@@ -35,12 +29,7 @@ export class StoreModule {
     const enhancers = !environment.production && this.devTools.isEnabled() ? [this.devTools.enhancer()] : [];
 
     const initialState = {
-      entities: {
-        comments: {},
-        users: {},
-      },
-      comments: [],
-      users: [],
+      entities: {},
     };
     this.ngRedux.configureStore(this.storeService.createReducer(this.storeService.asyncReducers), initialState, [], enhancers);
   }
