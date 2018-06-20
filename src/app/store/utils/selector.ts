@@ -106,7 +106,7 @@ export const createSelector = ({
   prop?: string;
   entity?: any;
   progress?: boolean;
-}) => {
+} = {}) => {
   if (entity) {
     return createDenormalizedEntitySelector(entity, { progress });
   }
