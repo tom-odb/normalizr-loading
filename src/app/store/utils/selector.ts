@@ -1,12 +1,15 @@
-import { path as getPath, equals, type, pathOr, propOr } from 'ramda';
 import { denormalize } from 'normalizr';
+import { path as getPath, equals, type, pathOr, propOr, toString } from 'ramda';
+export const parseToString = (str) => {
+  return type(str) === 'String' ? str : toString(str);
+};
 
 /**
  * creates a prop selector
  * handles progress state
  */
 export const createPropSelector = (prop, { progress = false } = {}) => {
-  const selector = prop.toString();
+  const selector = parseToString(prop);
 
   return progress ? createPathSelector([selector, 'result']) : selector;
 };
@@ -16,7 +19,7 @@ export const createPropSelector = (prop, { progress = false } = {}) => {
  * handles progress state
  */
 export const createPathSelector = (path, { progress = false } = {}) => {
-  const selector = Array.isArray(path) ? path : path.toString().split('.');
+  const selector = Array.isArray(path) ? path : parseToString(path).split('.');
 
   return progress ? createPathSelector([...selector, 'result']) : selector;
 };
