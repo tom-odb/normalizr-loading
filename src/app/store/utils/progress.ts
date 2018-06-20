@@ -40,28 +40,25 @@ export const progressReducer = <T = any>({ type }: ProgressOptions, reducer: Pro
 
     if (response === 'SUCCESS') {
       return Object.assign({}, state, {
-        loading: false,
         error: null,
         result: reducer(state, {
           ...action,
           type: `${entity}/${actions}`,
         }),
-        lastUpdated: Date.now(),
       });
     }
 
     if (response === 'ERROR') {
       return Object.assign({}, state, {
-        loading: false,
         error: action.message,
         result: null,
-        lastUpdated: Date.now(),
       });
     }
 
     if (response === 'DONE') {
       return Object.assign({}, state, {
         loading: false,
+        lastUpdated: Date.now(),
       });
     }
   }
