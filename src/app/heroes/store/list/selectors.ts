@@ -5,19 +5,23 @@ import { hero } from '../schemas';
 export const heroesList = createSelector({
   entity: {
     schema: hero,
-    path: ['heroes', 'list'],
+    prop: 'list',
   },
   progress: true,
 });
 
 export const heroesListPagination = createSelector({
-  path: 'heroes.list.pagination',
+  path: 'list.pagination',
 });
 
 export const heroesListLoading = createSelector({
-  path: 'heroes.list.loading',
+  path: 'list.loading',
 });
 
 export const heroesListError = createSelector({
-  path: 'heroes.list.error',
+  path: 'list.error',
+});
+
+export const heroesListMeta = createSelector({
+  path: 'list',
 });

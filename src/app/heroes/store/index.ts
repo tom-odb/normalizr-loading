@@ -8,3 +8,4 @@ export { HEROES_INITIAL_STATE } from './initial-state';
 export { HeroesProviders } from './providers';
 export { heroesReducers } from './reducers';
 export { hero } from './schemas';
+export { heroesSelector } from './selectors';
