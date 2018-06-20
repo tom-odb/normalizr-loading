@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { select } from '@angular-redux/store';
 import { Observable } from 'rxjs';
 
@@ -8,7 +8,7 @@ import { heroesSelector, HeroesListActions } from '../../store';
   selector: 'app-overview-page',
   templateUrl: './overview.page.html',
 })
-export class OverviewPageComponent {
+export class OverviewPageComponent implements OnInit {
   @select(heroesSelector.list.result) public heroes$: Observable<any>;
   @select(heroesSelector.list.loading) public heroesLoading$: Observable<any>;
   @select(heroesSelector.list.pagination) public heroesPagination$: Observable<any>;
