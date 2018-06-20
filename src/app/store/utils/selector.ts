@@ -5,6 +5,14 @@ export const parseToString = (str) => {
   return type(str) === 'String' ? str : toString(str);
 };
 
+export const verifyValue = (value) => {
+  if (value === undefined || value === null) {
+    return null;
+  }
+
+  return value;
+};
+
 /**
  * creates a prop selector
  * handles progress state
@@ -53,7 +61,7 @@ export const createDenormalizedEntitySelector = ({
 
     lastValue = currentValue;
 
-    if (!lastValue) {
+    if (!verifyValue(lastValue)) {
       denormalizedValue = null;
       return null;
     }
@@ -69,7 +77,7 @@ export const createDenormalizedEntitySelector = ({
       state.entities
     );
 
-    denormalizedValue = isArray ? denormalized[key] : (denormalized[key].length ? denormalized[key][0] : null);
+    denormalizedValue = isArray ? denormalized[key] : (denormalized.hasOwnProperty(key) ? verifyValue(denormalized[key][0]) : null);
 
     return denormalizedValue;
   };
