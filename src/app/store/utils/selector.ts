@@ -42,6 +42,7 @@ export const createDenormalizedEntitySelector = ({
   let lastValue = null;
   let denormalizedValue = null;
   const selector = createPathSelector(prop || path, options);
+  const key = (schema as any)._key;
 
   return (state) => {
     const currentValue = getPath(selector, state);
@@ -58,9 +59,17 @@ export const createDenormalizedEntitySelector = ({
     }
 
     const isArray = Array.isArray(lastValue);
-    const denormalized = denormalize(isArray ? lastValue : [lastValue], [schema], state.entities);
+    const denormalized = denormalize(
+      {
+        [key]: (isArray ? lastValue : [lastValue])
+      },
+      {
+        [key]: [schema],
+      } as any, // override weird normalizr typings
+      state.entities
+    );
 
-    denormalizedValue = isArray ? denormalized : (denormalized.length ? denormalized[0] : null);
+    denormalizedValue = isArray ? denormalized[key] : (denormalized[key].length ? denormalized[key][0] : null);
 
     return denormalizedValue;
   };
@@ -117,7 +126,7 @@ export const combineSelectors = (selectors, { entry = '' } = {}) => {
   }), {});
 };
 
-const getCombinedSelector = (selector, base) => {
+export const getCombinedSelector = (selector, base) => {
   switch (type(selector)) {
     case 'String':
       return createPathSelector([base, selector]);
