@@ -4,6 +4,7 @@ import { LoadingHandler } from './loading-handler.class';
 @Component({
   selector: 'app-loading',
   templateUrl: './loading.component.html',
+  styleUrls: ['./loading.component.scss'],
 })
 export class LoadingComponent implements OnChanges {
   @Input() public loading = true;
