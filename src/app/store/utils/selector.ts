@@ -123,20 +123,9 @@ export const createSelector = ({
 };
 
 /**
- * combines selectors
- * adds entry point to prop and path selectors
- * preselects state for denormalized selectors
+ * creates a selector
+ * will create a prop, path or denormalized selector based on provided config
  */
-export const combineSelectors = (selectors, { entry = '' } = {}) => {
-  if (!entry) {
-    return selectors;
-  }
-
-  return Object.keys(selectors).reduce((combined, selector) => ({
-    ...combined,
-    [selector]: getCombinedSelector(selectors[selector], entry),
-  }), {});
-};
 export const createEntrySelector = (selector, base) => {
   const baseSelector = createPathSelector(base);
 
@@ -167,4 +156,20 @@ export const createEntrySelector = (selector, base) => {
     default:
       return selector;
   }
+};
+
+/**
+ * combines selectors
+ * adds entry point to prop and path selectors
+ * preselects state for denormalized selectors
+ */
+export const combineSelectors = (selectors, { entry = '' } = {}) => {
+  if (!entry) {
+    return selectors;
+  }
+
+  return Object.keys(selectors).reduce((combined, selector) => ({
+    ...combined,
+    [selector]: createEntrySelector(selectors[selector], entry),
+  }), {});
 };
