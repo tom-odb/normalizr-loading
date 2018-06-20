@@ -18,7 +18,7 @@ export class LoadingHandler {
   public startLoading() {
     this.timer$ = timer(0, 1000)
       .pipe(
-        delay(1000), // Faster than 1 second --> do nothing
+        delay(600), // Faster than 0,6 second --> do nothing
         map((i) => {
           // Faster than 5 seconds --> show middle loading state
           if (i < 5) {
