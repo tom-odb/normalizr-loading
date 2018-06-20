@@ -4,6 +4,7 @@ import { LoadingHandler } from './loading-handler.class';
 @Component({
   selector: 'app-loading',
   templateUrl: './loading.component.html',
+  styleUrls: ['./loading.component.scss'],
 })
 export class LoadingComponent implements OnChanges {
   @Input() public loading = true;
@@ -11,7 +12,6 @@ export class LoadingComponent implements OnChanges {
 
   public loader = new LoadingHandler();
   public isLoading$ = this.loader.isLoading();
-  private timer$;
 
   public ngOnChanges() {
     this.loader.clearLoader();
