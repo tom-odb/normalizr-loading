@@ -1,5 +1,5 @@
-import { Injectable } from "@angular/core";
-import { NgRedux } from "@angular-redux/store";
+import { Injectable } from '@angular/core';
+import { NgRedux } from '@angular-redux/store';
 import { normalize } from 'normalizr';
 import { pathOr } from 'ramda';
 

@@ -1,0 +1,13 @@
+<div *ngIf="(isLoading$ | async) === status.SHORT">
+  ...
+</div>
+
+<div *ngIf="(isLoading$ | async) === status.MIDDLE">
+  Loading...
+</div>
+
+<div *ngIf="(isLoading$ | async) === status.LONG">
+  Loading takes longer than expected...
+</div>
+
+<ng-content *ngIf="!(isLoading$ | async)"></ng-content>

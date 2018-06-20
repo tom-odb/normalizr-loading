@@ -1,12 +1,12 @@
-import { Component, Input, OnChanges, SimpleChanges } from "@angular/core";
-import { Subscription } from "rxjs";
+import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { Subscription } from 'rxjs';
 import { get, isEqual } from 'lodash-es';
-import { NgRedux } from "@angular-redux/store";
+import { NgRedux } from '@angular-redux/store';
 
-import { StateSelector } from "../store/store.types";
+import { StateSelector } from '../store/store.types';
 
 @Component({
-  selector: 'loading',
+  selector: 'app-loading',
   template: `
     <span *ngIf="loading">...</span>
     <ng-content *ngIf="!loading"></ng-content>
@@ -15,7 +15,7 @@ import { StateSelector } from "../store/store.types";
 export class LoadingComponent implements OnChanges {
   @Input() public selector: StateSelector;
 
-  public loading: boolean = true;
+  public loading = true;
   private subscription: Subscription;
 
   constructor(
