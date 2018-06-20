@@ -1,29 +1,25 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { tap, catchError, finalize } from 'rxjs/operators';
-import { NgRedux } from '@angular-redux/store';
 
-import { EntitiesActions } from '../entities/actions';
-import { hero } from './schemas';
-import { ACTIONS } from './action-types';
-import { HeroRepository } from './repository';
-import { Handler } from '../utils/handler';
+import { EntitiesActions } from '../../../store/entities/actions';
+import { Handler } from '../../../store/utils/handler';
+
+import { HeroRepository } from '../repository';
+import { hero } from '../schemas';
+import { HEROES_LIST_ACTIONS as ACTIONS } from './action-types';
 
 @Injectable()
-export class HeroActions {
+export class HeroesListActions {
 
   constructor(
-    private ngRedux: NgRedux<any>,
     private heroRepository: HeroRepository,
     private entitiesActions: EntitiesActions,
     private handler: Handler,
   ) {}
 
-  public fetchAll(options = null): Observable<any> {
-    this.ngRedux.dispatch({
-      type: ACTIONS.FETCH_ALL_START,
-      loading: true,
-    });
+  public fetchAll(options?): Observable<any> {
+    this.handler.dispatchStart(ACTIONS.FETCH_ALL);
 
     return this.heroRepository.fetchAll(options)
       .pipe(
