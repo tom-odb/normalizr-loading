@@ -10,8 +10,6 @@ import { FooActions } from './foo/actions';
 import { EntitiesActions } from './entities/actions';
 import { UsersActions } from './users/actions';
 import { CommentsActions } from './comments/actions';
-import { HeroActions } from './heroes/actions';
-import { HeroRepository } from './heroes/repository';
 import { StoreService } from './store.service';
 
 @NgModule({
@@ -25,8 +23,6 @@ import { StoreService } from './store.service';
     EntitiesActions,
     UsersActions,
     CommentsActions,
-    HeroActions,
-    HeroRepository,
     Handler,
   ],
 })
