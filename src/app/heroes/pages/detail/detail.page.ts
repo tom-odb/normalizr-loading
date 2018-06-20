@@ -3,16 +3,16 @@ import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { select } from '@angular-redux/store';
 
-import { HeroesDetailActions, heroesDetail, heroesDetailLoading, heroesDetailError } from '../../store';
+import { heroesSelector, HeroesDetailActions } from '../../store';
 
 @Component({
   selector: 'app-detail-page',
   templateUrl: './detail.page.html',
 })
 export class DetailPageComponent implements OnInit, OnDestroy {
-  @select(heroesDetail) public hero$: Observable<any>;
-  @select(heroesDetailLoading) public loading$: Observable<any>;
-  @select(heroesDetailError) public error$: Observable<any>;
+  @select(heroesSelector.detail.result) public hero$: Observable<any>;
+  @select(heroesSelector.detail.loading) public loading$: Observable<any>;
+  @select(heroesSelector.detail.error) public error$: Observable<any>;
 
   private isFetching;
 
