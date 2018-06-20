@@ -2,18 +2,18 @@ import { Component } from '@angular/core';
 import { select } from '@angular-redux/store';
 import { Observable } from 'rxjs';
 
-import { heroesList, heroesListLoading, heroesListPagination, HeroesListActions, heroesListError } from '../../store';
+import { heroesSelector, HeroesListActions } from '../../store';
 
 @Component({
-  selector: 'overview-page',
+  selector: 'app-overview-page',
   templateUrl: './overview.page.html',
 })
-export class OverviewPage {
-  @select(heroesList) public heroes$: Observable<any>;
-  @select(heroesListLoading) public heroesLoading$: Observable<any>;
-  @select(heroesListPagination) public heroesPagination$: Observable<any>;
-  @select(heroesListError) public heroesError$: Observable<any>;
-  @select(['heroes']) public meta$: Observable<any>;
+export class OverviewPageComponent {
+  @select(heroesSelector.list.result) public heroes$: Observable<any>;
+  @select(heroesSelector.list.loading) public heroesLoading$: Observable<any>;
+  @select(heroesSelector.list.pagination) public heroesPagination$: Observable<any>;
+  @select(heroesSelector.list.error) public heroesError$: Observable<any>;
+  @select(heroesSelector.list.meta) public meta$: Observable<any>;
 
   public page = 1;
   private isFetching;

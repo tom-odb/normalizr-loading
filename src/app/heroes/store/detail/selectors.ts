@@ -5,15 +5,19 @@ import { hero } from '../schemas';
 export const heroesDetail = createSelector({
   entity: {
     schema: hero,
-    path: ['heroes', 'detail'],
+    prop: 'detail',
   },
   progress: true,
 });
 
 export const heroesDetailLoading = createSelector({
-  path: 'heroes.detail.loading'
+  path: 'detail.loading'
 });
 
 export const heroesDetailError = createSelector({
-  path: 'heroes.detail.error'
+  path: 'detail.error'
+});
+
+export const heroesDetailMeta = createSelector({
+  prop: 'detail',
 });

@@ -7,7 +7,7 @@ import { omitBy, isNil } from 'lodash-es';
 @Injectable()
 export class HeroRepository {
 
-  private apiUrl = 'https://gateway.marvel.com/v1/public/characters'
+  private apiUrl = 'https://gateway.marvel.com/v1/public/characters';
 
   constructor(public http: HttpClient) {}
 

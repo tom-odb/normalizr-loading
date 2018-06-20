@@ -1,13 +1,13 @@
-import { NgModule } from "@angular/core";
-import { CommonModule } from "@angular/common";
-import { RouterModule } from "@angular/router";
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
 
-import { LoadingModule } from "../loading/loading.module";
-import { StoreService } from "../store/store.service";
+import { LoadingModule } from '../loading/loading.module';
+import { StoreService } from '../store/store.service';
 
 import { HEROES_ROUTES } from './heroes.routes';
-import { Pages } from "./pages";
-import { HeroesProviders, heroesReducers } from "./store";
+import { Pages } from './pages';
+import { HeroesProviders, heroesReducers } from './store';
 
 @NgModule({
   imports: [
