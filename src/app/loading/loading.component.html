@@ -1,12 +1,12 @@
-<div *ngIf="(isLoading$ | async) === status.SHORT">
+<div *ngIf="(isLoading$ | async) === loader.status.SHORT">
   ...
 </div>
 
-<div *ngIf="(isLoading$ | async) === status.MIDDLE">
+<div *ngIf="(isLoading$ | async) === loader.status.MIDDLE">
   Loading...
 </div>
 
-<div *ngIf="(isLoading$ | async) === status.LONG">
+<div *ngIf="(isLoading$ | async) === loader.status.LONG">
   Loading takes longer than expected...
   <button (click)="emitCancel()">Cancel</button>
 </div>
