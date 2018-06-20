@@ -1,18 +1,31 @@
 import { path as getPath, equals, type, pathOr, propOr } from 'ramda';
 import { denormalize } from 'normalizr';
 
+/**
+ * creates a prop selector
+ * handles progress state
+ */
 export const createPropSelector = (prop, { progress = false } = {}) => {
   const selector = prop.toString();
 
   return progress ? createPathSelector([selector, 'result']) : selector;
 };
 
+/**
+ * creates a path selector
+ * handles progress state
+ */
 export const createPathSelector = (path, { progress = false } = {}) => {
   const selector = Array.isArray(path) ? path : path.toString().split('.');
 
   return progress ? createPathSelector([...selector, 'result']) : selector;
 };
 
+/**
+ * creates a denormalized entity selector
+ * memoizes last state
+ * denormalizes state with normalizr
+ */
 export const createDenormalizedEntitySelector = ({
   path,
   prop,
@@ -45,8 +58,15 @@ export const createDenormalizedEntitySelector = ({
   };
 };
 
+/**
+ * creates a noop selector
+ */
 export const noopSelector = (state) => state;
 
+/**
+ * creates a selector
+ * will create a prop, path or denormalized selector based on provided config
+ */
 export const createSelector = ({
   path,
   prop,
@@ -73,6 +93,11 @@ export const createSelector = ({
   return noopSelector;
 };
 
+/**
+ * combines selectors
+ * adds entry point to prop and path selectors
+ * preselects state for denormalized selectors
+ */
 export const combineSelectors = (selectors, { entry = '' } = {}) => {
   if (!entry) {
     return selectors;
@@ -91,19 +116,23 @@ const getCombinedSelector = (selector, base) => {
     case 'Array':
       return createPathSelector([base, ...selector]);
     case 'Function':
+      // get selector for entry point
       const entrySelector = createSelector({
         [Array.isArray(base) ? 'path' : 'prop']: base,
       });
 
       return (state) => {
+        // select state for entry point
         const entryState = Array.isArray(entrySelector) ? pathOr(null, entrySelector, state) : propOr(null, entrySelector, state);
 
+        // add on entities for denormalizing
         return selector({
           ...entryState,
           entities: state.entities,
         });
       };
     case 'Object':
+      // recursively create selectors
       return combineSelectors(selector, { entry: base });
     default:
       return selector;
